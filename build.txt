@@ -1,8 +1,8 @@
 author = IDGCaptainRussia
-version = 1.000
+version = 1.010
 displayName = Universal Throwing
 buildIgnore = .vs\*, .git\*, ignore\*, .gitignore, .gitattributes, *.MD, *.csproj, *.user, obj\*, bin\*
-homepage = https://forums.terraria.org/index.php?threads/base-mod-idglibrary-a-library-for-coders.72616/
+homepage = https://github.com/IDGCaptainRussia94/AAAAUThrowing
 includePDB = true
 hideCode = false
 hideResources = false
