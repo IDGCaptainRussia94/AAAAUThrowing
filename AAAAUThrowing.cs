@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
+using Terraria.Utilities;
 using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -63,7 +64,7 @@ namespace AAAAUThrowing
 
     }
 
-        public class UThrowingWeapon : GlobalItem
+    public class UThrowingWeapon : GlobalItem
     {
         public bool thrown = false;
 
@@ -174,6 +175,58 @@ namespace AAAAUThrowing
             }
         }
 
+        public override int ChoosePrefix(Item item,UnifiedRandom rand)
+        {
+            if (!item.Throwing().thrown)
+            {
+                return base.ChoosePrefix(item, rand);
+            }
+            Mod sga = ModLoader.GetMod("SGAmod");
+            if (sga != null)
+            {
+                //Ain't gonna lie, it's not pretty, but it works for now
+                //Will likely wait for Relogic/TML what they do about this
+                if (Main.rand.Next(0, 10) < 1)
+                {
+                    List<string> stuff = new List<string>();
+                    stuff.Add("Tossable");
+                    stuff.Add("Impacting");
+                    stuff.Add("Olympian");
+                    return sga.PrefixType(stuff[Main.rand.Next(0, stuff.Count)]);
+                }
+            }
+            switch (rand.Next(13))
+            {
+                case 0:
+                    return PrefixID.Heavy;
+                case 1:
+                    return PrefixID.Demonic;
+                case 2:
+                    return PrefixID.Frenzying;
+                case 3:
+                    return PrefixID.Dangerous;
+                case 4:
+                    return PrefixID.Savage;
+                case 5:
+                    return PrefixID.Furious;
+                case 6:
+                    return PrefixID.Terrible;
+                case 7:
+                    return PrefixID.Awful;
+                case 8:
+                    return PrefixID.Dull;
+                case 9:
+                    return PrefixID.Unhappy;
+                case 10:
+                    return PrefixID.Unreal;
+                case 11:
+                    return PrefixID.Shameful;
+                case 12:
+                    return PrefixID.Zealous;
+            }
+            return PrefixID.Pointy;
+
+        }
     }
 
     public static class ThrowingUtils
@@ -265,13 +318,29 @@ namespace AAAAUThrowing
         //throwing compatible, for now
         public override void PostUpdateEquips()
         {
-            thrownCrit += player.thrownCrit-4;
-            thrownDamage += player.thrownDamage-1f;
-            if (player.thrownCost33==true)
-            thrownCost33 = true;
+            int pre1 = thrownCrit;
+            float pre2 = thrownDamage;
+            bool pre3 = thrownCost33;
+            bool pre4 = thrownCost50;
+            float pre5 = thrownVelocity;
+
+            //Modded
+            thrownCrit += player.thrownCrit - 4;
+            thrownDamage += player.thrownDamage - 1f;
+            if (player.thrownCost33 == true)
+                thrownCost33 = true;
             if (player.thrownCost50 == true)
                 thrownCost50 = true;
-            player.thrownVelocity += thrownVelocity-1f;
+            thrownVelocity += player.thrownVelocity - 1f;
+
+            //Vanilla
+            player.thrownCrit += pre1-4;
+            player.thrownDamage += pre2 - 1f;
+            if (pre3 == true)
+                player.thrownCost33 = true;
+            if (pre4 == true)
+                player.thrownCost50 = true;
+            player.thrownVelocity += pre5 - 1f;
         }
 #endif
 
@@ -298,7 +367,7 @@ namespace AAAAUThrowing
                 {
                     //npc.AddBuff(BuffID.OnFire,10);
                     crit = false;
-                    if (Main.rand.Next(0, 100) < thrownPlayer.thrownCrit)
+                    if (Main.rand.Next(0, 100) < thrownPlayer.thrownCrit && !projectile.trap)
                     {
                         crit = true;
                         //npc.AddBuff(BuffID.CursedInferno, 60);

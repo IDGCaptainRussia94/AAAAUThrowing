@@ -1,2 +1,6 @@
 Universal Throwing (UThrowing) is a small mod that re-adds the throwing class for Terraria, to help prepare throwing weapons for 1.4
 Should be cross-functional with the vanilla damage type for the time being
+
+Update, should now boost both vanilla and modded throwing and allow for some (atm limited) prefixes
+
+-Trap weapons could crit, this was unintended

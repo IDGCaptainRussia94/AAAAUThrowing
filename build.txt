@@ -1,5 +1,5 @@
 author = IDGCaptainRussia
-version = 1.010
+version = 1.060
 displayName = Universal Throwing
 buildIgnore = .vs\*, .git\*, ignore\*, .gitignore, .gitattributes, *.MD, *.csproj, *.user, obj\*, bin\*
 homepage = https://github.com/IDGCaptainRussia94/AAAAUThrowing
