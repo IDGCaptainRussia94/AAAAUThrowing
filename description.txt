@@ -4,3 +4,5 @@ Should be cross-functional with the vanilla damage type for the time being
 Update, should now boost both vanilla and modded throwing and allow for some (atm limited) prefixes
 
 -Trap weapons could crit, this was unintended
+
+-Fixed stacking velocity bug

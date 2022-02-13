@@ -175,9 +175,16 @@ namespace AAAAUThrowing
             }
         }
 
+        public override bool? PrefixChance(Item item, int pre, UnifiedRandom rand)
+        {
+		if (item.consumable && item.maxStack<2 && pre==-3)
+			return false;
+            return base.PrefixChance(item, pre, rand);
+        }
+
         public override int ChoosePrefix(Item item,UnifiedRandom rand)
         {
-            if (!item.Throwing().thrown)
+            if (!item.Throwing().thrown && !item.thrown)
             {
                 return base.ChoosePrefix(item, rand);
             }
